@@ -29,21 +29,18 @@ const newCycleFormSchema = zod.object({
 type NewCycleFormData = zod.infer<typeof newCycleFormSchema>
 
 export function Home() {
-  const { register, handleSubmit, watch, formState } =
-    useForm<NewCycleFormData>({
-      resolver: zodResolver(newCycleFormSchema),
-      defaultValues: {
-        task: '',
-        minutesAmount: 0,
-      },
-    })
+  const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
+    resolver: zodResolver(newCycleFormSchema),
+    defaultValues: {
+      task: '',
+      minutesAmount: 0,
+    },
+  })
 
   function handleCreateNewCycle(data: NewCycleFormData) {
-    console.log(data.minutesAmount)
-    console.log(data.task)
+    console.log(data)
+    reset()
   }
-
-  console.log(formState.errors)
 
   // Monitoring the task
   const task = watch('task')
